@@ -47,17 +47,18 @@ class Command(BaseCommand):
                 non_paid_object=doctor_json.get("non_paid_object"),
                 is_approved=doctor_json.get("is_approved"),
             )
-            doctor._workingday_set = [
-                WorkingDay(
-                    is_workingday=workingday.get("is_workingday"),
-                    doctor_id=doctor.id,
-                    day=workingday.get("day"),
-                    work_start_time=workingday.get("work_start_time"),
-                    work_end_time=workingday.get("work_end_time"),
-                    break_start_time=workingday.get("break_start_time"),
-                    break_end_time=workingday.get("break_end_time")
-                ) for workingday in workingday_data if workingday.get("doctor_id") == doctor.id
-            ]
+            if len(doctor.workingday_set.all()) != 7:
+                doctor._workingday_set = [
+                    WorkingDay(
+                        is_workingday=workingday.get("is_workingday"),
+                        doctor_id=doctor.id,
+                        day=workingday.get("day"),
+                        work_start_time=workingday.get("work_start_time"),
+                        work_end_time=workingday.get("work_end_time"),
+                        break_start_time=workingday.get("break_start_time"),
+                        break_end_time=workingday.get("break_end_time")
+                    ) for workingday in workingday_data if workingday.get("doctor_id") == doctor.id
+                ]
             try:
                 doctor.save()
             except Exception as e:
