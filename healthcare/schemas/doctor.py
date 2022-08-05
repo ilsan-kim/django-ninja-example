@@ -31,9 +31,9 @@ class WorkingDay(Schema):
 
 # Doctor base class
 class DoctorBase(Schema):
-    hospital_name: str
-    name: str
-    department: str
+    hospital_name: str = "리버풀병원"
+    name: str = "헨더슨"
+    department: str = "1234"
     non_paid_object: Optional[str]
     working_days: List[WorkingDay]
 

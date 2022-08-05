@@ -10,7 +10,7 @@ class Command(BaseCommand):
     help = "Migrate base data for account & healthcare apps"
 
     def handle(self, *args, **options):
-        user_data_path =  "./migrate_data/user_data.json"
+        user_data_path = "./migrate_data/user_data.json"
         doctor_data_path = "./migrate_data/doctor_data.json"
         workingday_data_path = "./migrate_data/workingday_data.json"
 
@@ -25,15 +25,14 @@ class Command(BaseCommand):
 
         # migrate user data >>>
         for user_json in user_data:
-            user = User(
-                id=user_json.get("id"),
-                username=user_json.get("username"),
-                password=user_json.get("password"),
-                nickname=user_json.get("nickname"),
-                role=user_json.get("role"),
-            )
             try:
-                user.save()
+                User.objects.create_user(
+                    id=user_json.get("id"),
+                    username=user_json.get("username"),
+                    password=user_json.get("password"),
+                    nickname=user_json.get("nickname"),
+                    role=user_json.get("role"),
+                )
             except Exception as e:
                 print(e)
 

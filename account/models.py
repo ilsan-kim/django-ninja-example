@@ -24,6 +24,3 @@ class User(AbstractUser):
         if user is not None:
             return True
         return False
-
-    def get_user_role(self) -> str:
-        return self.role

@@ -53,5 +53,3 @@ class AccountSigninResp(AccountSignupResp):
 class PasswordChangeIn(Schema):
     old_password: str
     new_password: str
-
-
