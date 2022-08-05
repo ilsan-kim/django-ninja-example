@@ -89,6 +89,7 @@ python manage.py test
 4. Swagger 사용시 우측 상단 "Authorize"에 토큰 입력하면 됨 (자물쇠가 잠기면 성공!)
 <img width="1653" alt="image" src="https://user-images.githubusercontent.com/58629967/182991763-bb1cf3e7-aa35-4b5d-9301-79dc396d7972.png">
 5. HTTP 요청시 인증 예시
+
 ```
 curl -X 'POST' \
   'http://127.0.0.1:8000/api/diagnosis-request/request' \
