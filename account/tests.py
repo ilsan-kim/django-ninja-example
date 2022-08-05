@@ -23,7 +23,11 @@ class AuthTest(TestCase):
             "nickname": "success_nickname",
         }
         response = self.client.post("/api/auth/register", data=data, content_type="application/json")
+        user_model = User.objects.filter(username="success_name").first()
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(user_model.username, "success_name")
+        self.assertEqual(user_model.role, "PATIENT")
+        self.assertEqual(user_model.nickname, "success_nickname")
 
     # failed by User.already_registered()
     def test_register_failed(self):
