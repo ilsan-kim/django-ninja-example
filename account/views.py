@@ -12,13 +12,22 @@ from account import schemas
 auth_controller = Router(tags=["auth"])
 
 
-# TODO change return model from dict to pydantic schema
 @auth_controller.post("/register", auth=None, response={
     200: schemas.AccountSignupResp,
     403: MessageOut,
     500: MessageOut,
 })
 def register(request, payload: schemas.AccountSignupReq):
+    """
+    <h2>회원가입 API</h2>
+    content-type: application/json </br>
+    |param|description|type|example|
+    |-----|-----------|----|-------|
+    |username|로그인시 사용할 username, unique=True|string|"kim"|
+    |role|생성할 회원 role|enum (string)|"PATIENT" / "DOCTOR"|
+    |nickname|회원 이름|string|"김환자"|
+    |password|로그인시 사용할 비밀번호|string|"thisissafepassword"|
+    """
     already_registered = User.already_registered(username=payload.username)
     if already_registered:
         return HTTPStatus.FORBIDDEN, {
@@ -49,6 +58,14 @@ def register(request, payload: schemas.AccountSignupReq):
     404: MessageOut,
 })
 def login(request, payload: schemas.AccountSigninReq):
+    """
+    <h2>로그인 API</h2>
+    content-type: application/json </br>
+    |param|description|type|example|
+    |-----|-----------|----|-------|
+    |username|회원가입시 입력한 username값|string|"kim"|
+    |password|회원가입시 입력한 password값|string|"thisissafepassword"|
+    """
     user = authenticate(username=payload.username, password=payload.password)
     if user is not None:
         return HTTPStatus.OK, {
